@@ -21,6 +21,8 @@ sys.path.append(str(AFTER_DIR))
 from create_prediction_population import create
 from scraping import scrape_html_horse
 from create_rawdf import create_horse_results, create_horse_info
+from preprocessing import process_horse_results
+from feature_engeneering import PredictionFeatureCreator
 
 def open_horse_url(url):
     webbrowser.open(url)
@@ -410,6 +412,11 @@ class HorseApp:
                 
                 self.main_frame.update_idletasks()
 
+            self.horse_results_preprocessed = process_horse_results(
+                save_filename="horse_results_prediction.csv",
+                input_filename="horse_results_prediction.csv",
+                population_filename="prediction_population.csv"
+            )
 
         progress_label = tk.Label(
             self.main_frame,
@@ -461,7 +468,7 @@ class HorseApp:
             image=horse_image,
             anchor="w"
         )
-        # 表加工ボタン
+        # 前処理ボタン
         scraping_button = tk.Button(
             self.main_frame,
             text="前処理 スタート",
@@ -477,6 +484,9 @@ class HorseApp:
         print("前処理ボタンが押されました")
 
     def prediction(self):
+        for widget in self.main_frame.winfo_children():
+            if widget.grid_info().get("row") in [2, 3]:
+                widget.destroy()
         print("予想ボタンが押されました")
     
     def show_main_window(self):
