@@ -1,0 +1,15 @@
+pandas
+selenium
+webdriver-manager
+beautifulsoup4
+tqdm
+chardet
+lxml
+jupyter
+lightgbm
+matplotlib
+optuna
+seaborn
+scikit-learn
+Pillow
+tkcalendar
